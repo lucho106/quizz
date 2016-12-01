@@ -25,7 +25,7 @@ public class Hero {
     public Hero(int x, int y) {
         this.x = x;
         this.y = y;
-        this.tileset = loadImage("free_radical_game_sprites.png");
+        this.tileset = loadImage("im.png");
     }
 
     public Image getTileset() {
@@ -58,7 +58,7 @@ public class Hero {
     }
     public void dibujar(Graphics g, JPanel panel){
        g.setColor(Color.red);
-       g.drawImage(tileset, x, y, x+60, y+60, 0, 0, 32,32, panel);
+        g.drawImage(tileset, x, y, x+60, y+60, 5*218, 0, 6*218,215, panel);
     }
     
     

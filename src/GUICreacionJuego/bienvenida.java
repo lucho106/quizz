@@ -62,7 +62,7 @@ public class bienvenida extends javax.swing.JFrame {
         getContentPane().add(jButton2);
         jButton2.setBounds(407, 334, 99, 25);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUICreacionJuego/animated-gifs-of-fighting-game-backgrounds-36.gif"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/animated-gifs-of-fighting-game-backgrounds-36.gif"))); // NOI18N
         jLabel1.setLabelFor(jLabel1);
         jLabel1.setAlignmentX(500.0F);
         jLabel1.setAlignmentY(400.0F);

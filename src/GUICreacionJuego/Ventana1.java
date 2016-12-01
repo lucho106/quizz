@@ -26,7 +26,8 @@ import javax.swing.JOptionPane;
  *
  * @author lucho
  */
-public class Ventana1 extends javax.swing.JFrame {
+public class Ventana1 extends javax.swing.JFrame implements Runnable{
+    int hx=0,hy=0;
     
     int tamx,tamy;
     ArrayList<Integer> Objetivosx;
@@ -62,14 +63,18 @@ public class Ventana1 extends javax.swing.JFrame {
         Heroe = new javax.swing.JButton();
         Obstaculo = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        escribirautor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        escribirdescripcion = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         Objetivo = new javax.swing.JButton();
         Enemigo = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        autor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 500));
@@ -82,7 +87,7 @@ public class Ventana1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Heroe);
-        Heroe.setBounds(20, 260, 67, 25);
+        Heroe.setBounds(20, 260, 90, 25);
 
         Obstaculo.setText("+ Obstaculo");
         Obstaculo.addActionListener(new java.awt.event.ActionListener() {
@@ -91,27 +96,27 @@ public class Ventana1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Obstaculo);
-        Obstaculo.setBounds(410, 260, 101, 25);
+        Obstaculo.setBounds(391, 260, 120, 25);
 
         jLabel2.setText("Autor: ");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(20, 90, 40, 16);
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        escribirautor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                escribirautorActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(130, 90, 553, 22);
+        getContentPane().add(escribirautor);
+        escribirautor.setBounds(130, 90, 553, 22);
 
         jLabel3.setText("Descipción: ");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(20, 140, 69, 16);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        escribirdescripcion.setColumns(20);
+        escribirdescripcion.setRows(5);
+        jScrollPane1.setViewportView(escribirdescripcion);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(130, 150, 553, 51);
@@ -127,7 +132,7 @@ public class Ventana1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Objetivo);
-        Objetivo.setBounds(590, 260, 91, 25);
+        Objetivo.setBounds(561, 260, 120, 25);
 
         Enemigo.setText("+ Enemigo");
         Enemigo.addActionListener(new java.awt.event.ActionListener() {
@@ -136,16 +141,46 @@ public class Ventana1 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Enemigo);
-        Enemigo.setBounds(200, 260, 93, 25);
+        Enemigo.setBounds(183, 260, 110, 25);
 
-        jButton5.setText("Guardar");
+        jButton5.setText("crear juego");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton5);
-        jButton5.setBounds(320, 310, 79, 25);
+        jButton5.setBounds(510, 320, 210, 25);
+
+        jButton1.setText("guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(277, 320, 140, 25);
+
+        jButton2.setText("objetivo");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(57, 320, 110, 25);
+
+        jLabel1.setText("autor");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(20, 40, 30, 16);
+
+        autor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                autorActionPerformed(evt);
+            }
+        });
+        getContentPane().add(autor);
+        autor.setBounds(130, 40, 550, 20);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -153,10 +188,10 @@ int m=0;
 int n=1;
 int o=1;
 int p=1;
-int hx,hy;
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+
+    private void escribirautorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escribirautorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_escribirautorActionPerformed
 
     private void HeroeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HeroeActionPerformed
         //Hero}
@@ -165,11 +200,10 @@ int hx,hy;
        if(m==0){
         String HX = JOptionPane.showInputDialog(null, "posicion del heroe en x");
         String HY = JOptionPane.showInputDialog(null, "posicion del heroe en y");
-        
         hx=Integer.parseInt(HX);
         hy=Integer.parseInt(HY);
-        
-        
+       
+           System.out.println(hx+"  "+hy);
         
         
         }else{JOptionPane.showMessageDialog(null,"NO SE PUEDE TENER MAS DE UN HEROE"); }
@@ -178,27 +212,7 @@ int hx,hy;
         
     }//GEN-LAST:event_HeroeActionPerformed
 
-    public int getHx() {
-        return hx;
-    }
-    int mo=getHx();
-
-    public int getMo() {
-        return mo;
-    }
-
-    public void setHx(int hx) {
-        this.hx = hx;
-    }
-
-    public int getHy() {
-        return hy;
-    }
-
-    public void setHy(int hy) {
-        this.hy = hy;
-    }
-
+  
     public void setTamx(int tamx) {
         this.tamx = tamx;
     }
@@ -249,11 +263,14 @@ int hx,hy;
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // Guardar
+        System.out.println(hx);
+        
+        
         JFrame frame = new JFrame();
         frame.setTitle("juego");
-        int mm=500;
-        frame.setSize(new Dimension(tamx*60,tamy*60));
-        frame.add(new Quiz2());//adicionando el panel
+        
+        frame.setSize(new Dimension(((tamx+2)*60)-3*tamx,(((2+tamy)*60))-tamy));
+        frame.add(new Quiz2(tamx,tamy));//adicionando el panel
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         
@@ -261,55 +278,43 @@ int hx,hy;
         
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void autorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_autorActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ventana1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ventana1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ventana1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ventana1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Ventana1().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Enemigo;
     private javax.swing.JButton Heroe;
     private javax.swing.JButton Objetivo;
     private javax.swing.JButton Obstaculo;
+    private javax.swing.JTextField autor;
+    private javax.swing.JTextField escribirautor;
+    private javax.swing.JTextArea escribirdescripcion;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void run() {
+         new Ventana1().setVisible(true);
+    }
 }

@@ -5,8 +5,7 @@
  */
 package quiz2;
 
-import GUICreacionJuego.Ventana1;
-import GUICreacionJuego.mxy;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -22,28 +21,71 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import quiz2.Enemy;
 import quiz2.Hero;
+import quiz2.Hero;
+import quiz2.Objective;
+import quiz2.Obstacle;
+
 
 /**
  *
  * @author Usuario9
  */
 public class Quiz2 extends JPanel implements ActionListener, KeyListener{
-    Ventana1 zzzz = new Ventana1();
+    
+    
+
+    
+
+       
+    
     private Timer timer; 
-    
+    private ArrayList<Obstacle> O;
+    private ArrayList<Obstacle> borde;
+    private ArrayList<Objective> jec;
+    public Enemy enn = new Enemy(100,200);
     private Hero personajePrincipal;
-    
-    private int puntaje = 0;
    
-    public Quiz2(){
+    private int puntaje = 0;
+   public Quiz2(){
+       
+   }
+    public Quiz2(int tatay,int tatax){
+        
+        
         
             this.setFocusable(true);
             this.addKeyListener(this);
-            this.personajePrincipal = new Hero(zzzz.getHx()*60,zzzz.getHy()*60);
-          System.out.println((zzzz.getHx()));
+            this.personajePrincipal = new Hero(120,300);
            
             
+            this.O = new ArrayList<Obstacle>();
+            this.O.add(new Obstacle(60,60));
+            this.O.add(new Obstacle(300,360));
+            this.O.add(new Obstacle(360,420));
+            
+            this.borde = new ArrayList<Obstacle>();
+            
+                  int p=0;
+            while(p<tatax){
+            this.borde.add(new Obstacle(p*60,0));
+            this.borde.add(new Obstacle(p*60,tatay*60));
+            p++;
+            }
+            int k=0;
+            while(k<tatay){
+            this.borde.add(new Obstacle(0,k*60));
+            this.borde.add(new Obstacle(tatax*60,k*60));  
+             k++;
+            }
+             this.borde.add(new Obstacle(tatax*60,tatay*60));
+       
+            
+            this.jec = new ArrayList<Objective>();
+            this.jec.add(new Objective(0,0));
+            this.jec.add(new Objective(0,120));
+            this.jec.add(new Objective(300,0));
             
          
             
@@ -53,16 +95,31 @@ public class Quiz2 extends JPanel implements ActionListener, KeyListener{
         
     }
     protected void paintComponent(Graphics g) {
-         super.paintComponent(g);
-         this.personajePrincipal.dibujar(g,this);
-
-    
-    
-    
-           
+        super.paintComponent(g);
+        this.personajePrincipal.dibujar(g,this);
+        this.enn.dibujar(g,this);
+        for(Obstacle Oa: this.O)
+            Oa.dibujar(g,this);
+        
+        for(Obstacle zz: this.borde)
+            zz.dibujar(g,this);
+        
+        for(Objective j: this.jec)
+            j.dibujar(g,this);
         
     }
 
+         
+         
+         
+        
+         
+         
+        
+    
+
+ 
+    
     @Override
     public void keyTyped(KeyEvent e) {
      
@@ -106,6 +163,23 @@ public class Quiz2 extends JPanel implements ActionListener, KeyListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+      
+       validarColisiones();
        repaint();
+        //enn.mover();
+    }
+    public void validarColisiones(){
+        Rectangle recPersonaje= this.personajePrincipal.obtenerRectangulo();
+        ArrayList<Objective> copia = (ArrayList<Objective>) this.jec.clone();
+        for(Objective c : jec){
+           Rectangle RecCir = c.obtenerRectangulo();
+           if(recPersonaje.intersects(RecCir)){
+               copia.remove(c);
+               this.puntaje++;
+           }
+           this.jec=copia;   
+           
+        }
     }
 }
